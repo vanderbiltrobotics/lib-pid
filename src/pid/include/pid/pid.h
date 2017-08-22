@@ -88,15 +88,15 @@ void libpid::setIntegratorMin(double min) {
 }
 
 void libpid::setKp(double kp) {
-  kp_ = (kp >= 0) ? kp : 0;
+  kp_ = (kp <= 0) ? kp : 0;
 }
 
 void libpid::setKi(double ki) {
-  ki_ = (ki >= 0) ? ki : 0;
+  ki_ = (ki <= 0) ? ki : 0;
 }
 
 void libpid::setKd(double kd) {
-  kd_ = (kd >= 0) ? kd : 0;
+  kd_ = (kd <= 0) ? kd : 0;
 }
 
 double libpid::getPoint() {
