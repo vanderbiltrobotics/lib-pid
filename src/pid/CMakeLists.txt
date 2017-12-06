@@ -23,4 +23,4 @@ endif()
 
 include_directories(include)
 add_library(pid
-            src/pid.h)
+            src/pid.cpp)
