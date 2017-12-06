@@ -12,7 +12,7 @@ simple pid class ready to import as a source library in ROSMOD
 # Usage
 
 1. Drag the library into the `set editor` of any component that uses it
-2. In the forwards section of the component add `#include "pid/pid.h"
+2. In the forwards section of the component add `#include "pid/pid.h`
 
 
 # API
