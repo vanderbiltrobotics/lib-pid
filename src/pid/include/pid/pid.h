@@ -19,9 +19,11 @@ class PID
   double update(double current_value)
   {
     double error = set_point_ - current_value;
-    integrator_ += error;
     //clamp integrator_ value between integrator_max_ and integrator_min_
-    double i_value = ki_ * (integrator_ > integrator_max_ ? integrator_max_ : (integrator_ < integrator_min_ ? integrator_min_ : integrator_));
+    integrator_ += error
+    integrator_ = (integrator_ > integrator_max_ ? integrator_max_ : (integrator_ < integrator_min_ ? integrator_min_ : integrator_));
+ 
+    double i_value = ki_ * integrator_;
     double pid = kp_*error + kd_*(error-derivator_) + i_value;
     if(isLimited_)
       {
