@@ -5,6 +5,7 @@ find_package(catkin REQUIRED COMPONENTS)
 
 catkin_package(
 	INCLUDE_DIRS include
+        LIBRARIES pid
 )
 
 ## Check C++11 / C++0x
@@ -18,3 +19,8 @@ set(CMAKE_CXX_FLAGS "-std=c++0x")
 else()
 message(FATAL_ERROR "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
 endif()
+
+
+include_directories(include)
+add_library(pid
+            src/pid.h)
