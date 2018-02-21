@@ -20,7 +20,7 @@ class PID
   {
     double error = set_point_ - current_value;
     //clamp integrator_ value between integrator_max_ and integrator_min_
-    integrator_ += error
+    integrator_ += error;
     integrator_ = (integrator_ > integrator_max_ ? integrator_max_ : (integrator_ < integrator_min_ ? integrator_min_ : integrator_));
  
     double i_value = ki_ * integrator_;
