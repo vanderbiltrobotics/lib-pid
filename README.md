@@ -1,6 +1,14 @@
 # lib-pid
 simple pid class ready to import as a source library in ROSMOD
 
+
+Install Build Tools
+-------------------------
+
+```bash
+sudo apt-get install python-catkin-tools
+```
+
 Build Library:
 -------------
 
