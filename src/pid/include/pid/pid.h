@@ -85,6 +85,21 @@ class PID
   {
     isLimited_ = false;
   };
+
+  double getKp()
+  {
+    return kp_;
+  };
+
+  double getKd()
+  {
+    return kd_;
+  };
+
+  double getKi()
+  {
+    return ki_;
+  };
   
   double getPoint()
   {
