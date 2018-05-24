@@ -19,6 +19,10 @@ class PID
   double update(double current_value)
   {
     double error = set_point_ - current_value;
+    if(hasDeadzone_)
+      {
+        error = error < deadzone_lower_ ? error : (error > deadzone_upper_ ? error : 0);
+      }
     //clamp integrator_ value between integrator_max_ and integrator_min_
     integrator_ += error;
     integrator_ = (integrator_ > integrator_max_ ? integrator_max_ : (integrator_ < integrator_min_ ? integrator_min_ : integrator_));
@@ -81,9 +85,25 @@ class PID
     output_max_ = max;
   };
 
+  void setDeadzone(double lower, double upper)
+  {
+    hasDeadzone_ = true;
+    deadzone_lower_ = lower;
+    deadzone_upper_ = upper;
+  };
+
   void delimitOutput()
   {
     isLimited_ = false;
+    output_min_ = 0;
+    output_max_ = 0;
+  };
+
+  void removeDeadzone()
+  {
+    hasDeadzone_ = false;
+    deadzone_lower_ = 0;
+    deadzone_upper_ = 0;
   };
 
   double getKp()
@@ -126,9 +146,24 @@ class PID
     return output_max_;
   };
 
+  double getDeadzoneLower()
+  {
+    return deadzone_lower_;
+  };
+
+  double getDeadzoneUpper()
+  {
+    return deadzone_upper_;
+  };
+
   bool outputIsLimited()
   {
     return isLimited_;
+  };
+
+  bool outputHasDeadzone()
+  {
+    return hasDeadzone_;
   };
   
  private:
@@ -142,7 +177,10 @@ class PID
   double set_point_;
   double output_max_;
   double output_min_;
+  double deadzone_lower_;
+  double deadzone_upper_;
   bool isLimited_;
+  bool hasDeadzone_;
 };
 
 #endif

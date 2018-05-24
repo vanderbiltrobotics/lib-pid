@@ -71,4 +71,19 @@ double output = pidObject.update(currentValue);
 // double outputMin = XXX;
 // double outputMax = XXX;
 pidObject.limitOutput(outputMin, outputMax);
+double max = pidObject.getOutputMax();
+double min = pidObject.getOutputMin();
+bool isSet = pidObject.outputIsLimited();
+pidObject.delimitOutput();
+```
+## Set deadzone about setpoint
+
+```c++
+// double deadzoneLower = xxx;
+// double deadzoneUpper = xxx;
+pidObject.setDeadzone(deadzoneLower, deadzoneUpper);
+double upper = pidObject.getDeadzoneUpper();
+double lower = pidObject.getDeadzoneLower();
+bool isSet = pidObject.hasDeadzone();
+pidObject.removeDeadzone();
 ```
