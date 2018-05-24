@@ -30,7 +30,7 @@ public:
     deadzone_lower_ = 0;
     deadzone_upper_ = 0;
     isLimited_ = false;
-    hasDeadzone = false;
+    hasDeadzone_ = false;
   };
   
   PID& operator=(const PID& rhs)
