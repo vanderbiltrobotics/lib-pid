@@ -5,7 +5,6 @@ find_package(catkin REQUIRED COMPONENTS)
 
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES pid
   )
 
 ## Check C++11 / C++0x
