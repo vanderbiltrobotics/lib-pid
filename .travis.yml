@@ -20,3 +20,15 @@ script:
     - cp -r $TRAVIS_BUILD_DIR ~/catkin_ws/src/
     - cd ~/catkin_ws
     - catkin build
+
+before_deploy:
+    - cd $TRAVIS_BUILD_DIR/src
+    - zip -r pid.zip pid
+
+deploy:
+  provider: releases
+  api_key:
+    secure: O4KyWVyfpT+Ai984CYT28sZOcLzcSt1jEwt0c/+yMp+5vHBXo2jjJ3Y8hhBoiOe2NQs1K7d9yLvbrh0AboK6l7vtwawmMy6EU1MuA0IBLch7IGDAbB3bvo90N7wvmGsX1YBsz4CuPNJnzYJ+naqWxr5V+dL9a3depWH5i9CdMa0yklC6fzNa0EXzuOqKLlqPHcMBjsuDg9o42oXe5R4GXGVzgs7pOXrLzF3ESVH1VBRLuJeNPC62rPHythPIkkA33ROyFJddQJ+yksWYpvqOwEDIuy4LdDVoKVO91Ce7ddmamr5ivIUkUKyFEwcHngGvlutgCMhfzXKGHmJIuM14M5GEdDGhPk2yKhnuo2yVOjZHwVmjFzioIXZ3PdoMd/gE3EHsr2pc9uPtA59l8Fzv0cCZ8iQUvMXhDBLe1BLRJzZ//Uzr8+VXE9dOmOXPw4wCFGspApvRVmtKAMRIUfwn2QUsDqGCelrdL+3kN5pIb4DI0w1x/ii132VcKnc1YN1HqkzTF0e3epiWyaRM9YG8oSMWLOnvj0/+fEBhiwDmksvv6A4zhQBfPO8NY0VZPdJbeepUBn1SVOvsTUe2LieVxKIcUVCcXBbBHMI+3mVDe5kmLlBRrRYsZiTRe1h8bg/dtS9YgmXBYAaKEpv3Cns+PTgM8TYsf4NCc0uKi3XNXMU=
+  file: src/pid.zip
+  on:
+    repo: vanderbiltrobotics/lib-pid
