@@ -3,8 +3,12 @@
 
 class PID
 {
- public:
-  PID();
+public:
+  PID()
+  {
+    kp_ = ki_ = kd_ = derivator_ = integrator_ = integrator_max_ = integrator_min_ = set_point_ = output_max_ = output_min_ = deadzone_lower_ = deadzone_upper_ = 0;
+    isLimited_ = hasDeadzone_ = false;
+  };
   ~PID() {}
   PID(double p, 
       double i, 
@@ -12,13 +16,50 @@ class PID
       double derivator, 
       double integrator,
       double integrator_max,
-      double integrator_min);
+      double integrator_min)
+  {
+    kp_ = p;
+    ki_ = i;
+    kd_ = d;
+    derivator_ = derivator;
+    integrator_ = integrator;
+    integrator_max_ = integrator_max;
+    integrator_min_ = integrator_min;
+    output_max_ = 0;
+    output_min_ = 0;
+    deadzone_lower_ = 0;
+    deadzone_upper_ = 0;
+    isLimited_ = false;
+    hasDeadzone_ = false;
+  };
   
-  PID& operator=(const PID& rhs);
+  PID& operator=(const PID& rhs)
+  {
+    if (this == &rhs)
+      return *this;
+    kp_ = rhs.kp_;
+    ki_ = rhs.ki_;
+    kd_ = rhs.kd_;
+    set_point_ = rhs.set_point_;
+    derivator_ = rhs.derivator_;
+    integrator_ = rhs.integrator_;
+    integrator_max_ = rhs.integrator_max_;
+    integrator_min_ = rhs.integrator_min_;
+    output_min_ = rhs.output_min_;
+    output_max_ = rhs.output_max_;
+    isLimited_ = rhs.isLimited_;
+
+    return *this;
+  };
+
   
   double update(double current_value)
   {
     double error = set_point_ - current_value;
+    if(hasDeadzone_)
+      {
+        error = error < deadzone_lower_ ? error : (error > deadzone_upper_ ? error : 0);
+      }
     //clamp integrator_ value between integrator_max_ and integrator_min_
     integrator_ += error;
     integrator_ = (integrator_ > integrator_max_ ? integrator_max_ : (integrator_ < integrator_min_ ? integrator_min_ : integrator_));
@@ -81,9 +122,40 @@ class PID
     output_max_ = max;
   };
 
+  void setDeadzone(double lower, double upper)
+  {
+    hasDeadzone_ = true;
+    deadzone_lower_ = lower;
+    deadzone_upper_ = upper;
+  };
+
   void delimitOutput()
   {
     isLimited_ = false;
+    output_min_ = 0;
+    output_max_ = 0;
+  };
+
+  void removeDeadzone()
+  {
+    hasDeadzone_ = false;
+    deadzone_lower_ = 0;
+    deadzone_upper_ = 0;
+  };
+
+  double getKp()
+  {
+    return kp_;
+  };
+
+  double getKd()
+  {
+    return kd_;
+  };
+
+  double getKi()
+  {
+    return ki_;
   };
   
   double getPoint()
@@ -111,12 +183,27 @@ class PID
     return output_max_;
   };
 
+  double getDeadzoneLower()
+  {
+    return deadzone_lower_;
+  };
+
+  double getDeadzoneUpper()
+  {
+    return deadzone_upper_;
+  };
+
   bool outputIsLimited()
   {
     return isLimited_;
   };
+
+  bool outputHasDeadzone()
+  {
+    return hasDeadzone_;
+  };
   
- private:
+private:
   double kp_;
   double ki_;
   double kd_;
@@ -127,7 +214,10 @@ class PID
   double set_point_;
   double output_max_;
   double output_min_;
+  double deadzone_lower_;
+  double deadzone_upper_;
   bool isLimited_;
+  bool hasDeadzone_;
 };
 
 #endif
