@@ -11,7 +11,7 @@ addons:
     packages:
         - python-catkin-tools
 
-script
+script:
     - mkdir -p ~/catkin_ws/src
     - cp -r $TRAVIS_BUILD_DIR ~/catkin_ws/src/
     - cd ~/catkin_ws
