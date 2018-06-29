@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/vanderbiltrobotics/lib-pid.svg?branch=master)](https://travis-ci.com/vanderbiltrobotics/lib-pid)
 # lib-pid
 simple header only pid class ready to import as a source library in ROSMOD
 
