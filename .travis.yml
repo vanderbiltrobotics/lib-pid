@@ -1,5 +1,7 @@
 sudo: false
-
+dist: trusty
+language:
+  - generic
 cache:
   - apt
 
@@ -10,8 +12,10 @@ addons:
           key_url: 'http://packages.ros.org/ros.key'
     packages:
         - python-catkin-tools
+        - ros-indigo-catkin
 
 script:
+    - source /opt/ros/indigo/setup.bash
     - mkdir -p ~/catkin_ws/src
     - cp -r $TRAVIS_BUILD_DIR ~/catkin_ws/src/
     - cd ~/catkin_ws
